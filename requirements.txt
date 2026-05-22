@@ -1,0 +1,6 @@
+Flask
+Flask-SocketIO
+python-dotenv
+python-socketio[client]
+gunicorn
+simple-websocket

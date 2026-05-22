@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SmartXCar | Araç Kontrol Paneli</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script defer src="{{ url_for('static', filename='control.js') }}"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>SmartXCar Kontrol Paneli</h1>
+        <p>{{ car_id }}</p>
+      </div>
+      <form method="post" action="{{ url_for('logout') }}">
+        <button class="ghost-button" type="submit">Çıkış</button>
+      </form>
+    </header>
+
+    <main class="dashboard">
+      <section class="status-row" aria-label="Araç durumu">
+        <div id="car-status" class="status-badge offline">Araç Çevrimdışı</div>
+        <div id="socket-status" class="socket-status">Panel bağlanıyor</div>
+      </section>
+
+      <section class="sensor-grid" aria-label="Sensör verileri">
+        <article class="sensor-card">
+          <span>Mesafe</span>
+          <strong id="distance-value">Veri bekleniyor</strong>
+        </article>
+        <article class="sensor-card">
+          <span>Yağış Durumu</span>
+          <strong id="rain-value">Veri bekleniyor</strong>
+        </article>
+      </section>
+
+      <section class="control-section" aria-labelledby="drive-title">
+        <div class="section-heading">
+          <h2 id="drive-title">Hareket</h2>
+          <p>Hareket etmek için yön tuşuna basılı tutun. Bıraktığınızda araç durur.</p>
+        </div>
+
+        <div class="drive-pad" aria-label="Yön kontrolleri">
+          <button class="drive-button forward" type="button" data-drive="forward">İleri</button>
+          <button class="drive-button left" type="button" data-drive="left">Sol</button>
+          <button class="drive-button stop-button" type="button" data-stop>ACİL DUR</button>
+          <button class="drive-button right" type="button" data-drive="right">Sağ</button>
+          <button class="drive-button backward" type="button" data-drive="backward">Geri</button>
+        </div>
+      </section>
+
+      <section class="control-section" aria-labelledby="accessory-title">
+        <div class="section-heading">
+          <h2 id="accessory-title">Aksesuarlar</h2>
+        </div>
+
+        <div class="accessory-grid">
+          <button class="control-button" type="button" data-horn>Korna</button>
+          <button class="control-button" type="button" data-headlights aria-pressed="false">Far Kapalı</button>
+          <button class="control-button" type="button" data-flash>Selektör</button>
+          <label class="select-control" for="wiper-speed">
+            <span>Silecek</span>
+            <select id="wiper-speed" data-wiper>
+              <option value="0">Kapalı</option>
+              <option value="1">Yavaş</option>
+              <option value="2">Orta</option>
+              <option value="3">Hızlı</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="message-panel" aria-live="polite">
+        <span>Son işlem</span>
+        <strong id="last-message">Henüz komut yok.</strong>
+      </section>
+    </main>
+  </body>
+</html>

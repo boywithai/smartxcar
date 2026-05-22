@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SmartXCar | Araç Kontrol Paneli</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body class="auth-page">
+    <main class="login-shell" aria-labelledby="login-title">
+      <section class="login-panel">
+        <div>
+          <h1 id="login-title">SmartXCar</h1>
+          <p>Güvenli Araç Kontrol Sistemi</p>
+        </div>
+
+        <form method="post" class="login-form">
+          <label for="password">Yönetici Parolası</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required autofocus>
+          {% if error %}
+          <div class="form-error" role="alert">{{ error }}</div>
+          {% endif %}
+          <button type="submit">Giriş Yap</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
